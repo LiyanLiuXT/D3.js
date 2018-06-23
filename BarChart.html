@@ -61,6 +61,15 @@
 				.attr("width",xScale.rangeBand())
 				.attr("height",function(d){
 					return yScale(d);
+				})
+				.on("mouseover",function(d,i){
+					d3.select(this).attr("fill","yellow");
+				})
+				.on("mouseout",function(d,i){
+					d3.select(this)
+						.transition()
+						.duration(500)
+						.attr("fill","steelblue");
 				});
 
 	var text = svg.selectAll("text")
