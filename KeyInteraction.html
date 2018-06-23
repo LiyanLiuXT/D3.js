@@ -1,0 +1,69 @@
+<html> 
+<head>
+<meta charset="utf-8">  
+<title></title>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+	var width = 400;
+	var height = 400;
+
+	var svg = d3.select("body")
+				.append("svg")
+				.attr("width",width)
+				.attr("height",height);
+
+	var characters = ["A","S","D","F"];
+
+	var rects = svg.selectAll("rect")
+				.data(characters)
+				.enter()
+				.append("rect")
+				.attr("x",function(d,i){
+					return 10 + i*60;
+				})
+				.attr("y",150)
+				.attr("width",55)
+				.attr("height",55)
+				.attr("dx",5)
+				.attr("dy",5)
+				.attr("fill","black");
+	
+	var texts = svg.selectAll("text")
+				.data(characters)
+				.enter()
+				.append("text")
+				.attr("x",function(d,i){
+					return 10 + i*60;
+				})
+				.attr("y",150)
+				.attr("dx",10)
+				.attr("dy",25)
+				.attr("fill","white")
+				.attr("font-sixe",24)
+				.text(function(d){
+					return d;
+				});
+
+	d3.select("body")
+		.on("keydown",function(){
+			rects.attr("fill",function(d){
+				if(d == String.fromCharCode(d3.event.keyCode)){
+					//如果按下的键与此rect元素上绑定的数据d相同，则返回黄色
+					return "yellow";
+				}else{
+					//否则返回黑色
+					return "black";
+				}
+			});
+		})
+		.on("keyup",function(){
+			rects.attr("fill","black");
+		});
+</script>		 
+</body>
+</html>
